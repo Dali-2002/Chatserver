@@ -17,11 +17,13 @@ public class StringParsen {
             Pattern patternSendTo = Pattern.compile("^!sendTo ([A-Za-z]+) (.*)");
             Pattern patternCreateUser = Pattern.compile("^!createUser ([A-Za-z]+) ([A-Za-z]+)");
             Pattern patternColour = Pattern.compile("^!myColour ([A-Za-z]+)");
+            Pattern patternNick = Pattern.compile("^!nick ([A-Za-z]+)");
             Pattern patternHelp = Pattern.compile("^!help");
 
             Matcher matcherSendTo = patternSendTo.matcher(eingabe);
             Matcher matcherCreateUser = patternCreateUser.matcher(eingabe);
             Matcher matcherColour = patternColour.matcher(eingabe);
+            Matcher matcherNick = patternNick.matcher(eingabe);
             Matcher matcherHelp = patternHelp.matcher(eingabe);
 
         if (matcherSendTo.find()) {
@@ -47,6 +49,9 @@ public class StringParsen {
                 worker.setColour("97m");
             }
 
+        } else if(matcherNick.find()){
+            worker.setLogin(matcherCreateUser.group(1));
+            System.out.println("changed name to: " + worker.getLogin());
         } else if (matcherCreateUser.find()) {
             String name = matcherCreateUser.group(1);
             String password = matcherCreateUser.group(2);
@@ -57,6 +62,7 @@ public class StringParsen {
             worker.send("\r\n!sendTo //sends message to user ([target username] [message])\r\n" +
                             "!createUser //creates a new user ([name] [password])\r\n" +
                             "!myColour //changes the colour you're writing with ([myColour])\r\n (red,green,yellow,blue,white)\r\n" +
+                            "!nick //changes your nickname for this session, but not your loginname([new nickname])\r\n" +
                             "!help //show this message\r\n"+
                             "logoff //disconnect client from server\r\n");
         } else {
