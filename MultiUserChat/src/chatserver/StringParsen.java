@@ -50,7 +50,7 @@ public class StringParsen {
             }
 
         } else if(matcherNick.find()){
-            worker.setLogin(matcherCreateUser.group(1));
+            worker.setLogin(matcherNick.group(1));
             System.out.println("changed name to: " + worker.getLogin());
         } else if (matcherCreateUser.find()) {
             String name = matcherCreateUser.group(1);
